@@ -1,3 +1,4 @@
+import Settings from "./components/settings/Settings";
 import Timer from "./components/timer/Timer";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <>
       <div className="draggable fixed top-0 h-10 w-screen" />
       <div className="pt-10">
+        <Settings />
         <Timer />
       </div>
     </>
