@@ -19,8 +19,10 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "pomodoro-tracker",
-		Width:  1024,
+		Width:  420,
 		Height: 768,
+        DisableResize: true,
+        Fullscreen: false,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
