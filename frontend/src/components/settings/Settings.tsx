@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Settings as SettingsIcon } from "lucide-react";
 import {
   Drawer,
@@ -11,11 +11,42 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import TimeField from "../time-field/TimeField";
+import useTimingsStore from "@/stores/useTimingsStore";
 
 const Settings = () => {
+  const {
+    workInterval,
+    shortBreak,
+    longBreak,
+    sessions,
+    setTimings,
+    resetTimings,
+  } = useTimingsStore();
+
+  const [workIntervalLocal, setWorkIntervalLocal] = useState(workInterval / 60);
+  const [shortBreakLocal, setShortBreakLocal] = useState(shortBreak / 60);
+  const [longBreakLocal, setLongBreakLocal] = useState(longBreak / 60);
+  const [sessionsLocal, setSessionsLocal] = useState(sessions);
+
+  const handleSave = () => {
+    setTimings({
+      workInterval: workIntervalLocal * 60,
+      shortBreak: shortBreakLocal * 60,
+      longBreak: longBreakLocal * 60,
+      sessions: sessionsLocal,
+    });
+  };
+
+  const handleReset = () => {
+    setWorkIntervalLocal(25);
+    setShortBreakLocal(5);
+    setLongBreakLocal(15);
+    setSessionsLocal(4);
+    resetTimings();
+  };
+
   return (
     <Drawer>
       <DrawerTrigger>
@@ -29,26 +60,39 @@ const Settings = () => {
         <div className="flex flex-col gap-8 p-4">
           <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="work-interval">Work Interval</Label>
-            <TimeField value={25} setValue={() => {}} />
+            <TimeField
+              value={workIntervalLocal}
+              setValue={setWorkIntervalLocal}
+            />
           </div>
           <div className="flex w-full gap-8">
             <div className="flex flex-col gap-2">
               <Label htmlFor="short-break">Short break</Label>
-              <TimeField value={5} setValue={() => {}} />
+              <TimeField
+                value={shortBreakLocal}
+                setValue={setShortBreakLocal}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="long-break">Long break</Label>
-              <TimeField value={15} setValue={() => {}} />
+              <TimeField value={longBreakLocal} setValue={setLongBreakLocal} />
             </div>
           </div>
           <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="sessions">Number of sessions</Label>
-            <TimeField value={4} setValue={() => {}} />
+            <TimeField value={sessionsLocal} setValue={setSessionsLocal} />
           </div>
         </div>
+        <DrawerClose className="w-full">
+          <Button onClick={handleReset} className="mx-4" variant="secondary">
+            Reset to default
+          </Button>
+        </DrawerClose>
         <DrawerFooter className="flex-row items-start gap-2">
           <DrawerClose className="w-full">
-            <Button className="w-full">Save</Button>
+            <Button className="w-full" onClick={handleSave}>
+              Save
+            </Button>
           </DrawerClose>
           <DrawerClose className="w-full">
             <Button variant="outline" className="w-full">

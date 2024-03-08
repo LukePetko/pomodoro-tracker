@@ -1,32 +1,15 @@
 import CircularProgress from "@/components/custom/CircularProgress";
 import secondsToTime from "@/lib/convertSeconds";
+import useTimingsStore from "@/stores/useTimingsStore";
 import React, { useEffect, useState } from "react";
 
 const Timer = () => {
+  const { workInterval, shortBreak, longBreak, sessions } = useTimingsStore();
+
   const [seconds, setSeconds] = useState(0);
   const [currentTotalSeconds, setCurrentTotalSeconds] = useState(1);
 
   const [currentSession, setCurrentSession] = useState(0);
-  const [sessions, setSessions] = useState(8);
-  const [timePerSession, setTimePerSession] = useState(25);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(15);
-
-  useEffect(() => {
-    const timePerSession = localStorage.getItem("timePerSession");
-    const timePerShortBreak = localStorage.getItem("timePerShortBreak");
-    const timePerLongBreak = localStorage.getItem("timePerLongBreak");
-
-    if (timePerSession) {
-      setTimePerSession(parseInt(timePerSession));
-    }
-    if (timePerShortBreak) {
-      setShortBreak(parseInt(timePerShortBreak));
-    }
-    if (timePerLongBreak) {
-      setLongBreak(parseInt(timePerLongBreak));
-    }
-  }, []);
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -37,8 +20,8 @@ const Timer = () => {
         setSeconds(longBreak);
         setCurrentTotalSeconds(longBreak);
       } else if (currentSession % 2 === 0) {
-        setSeconds(timePerSession);
-        setCurrentTotalSeconds(timePerSession);
+        setSeconds(workInterval);
+        setCurrentTotalSeconds(workInterval);
       } else if (currentSession % 2 === 1) {
         setSeconds(shortBreak);
         setCurrentTotalSeconds(shortBreak);
