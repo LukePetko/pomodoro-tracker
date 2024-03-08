@@ -40,7 +40,7 @@ const Settings = () => {
             <Label htmlFor="work-interval">Work Interval</Label>
             <TimeField
               value={workInterval}
-              setValue={() => setTimings({ workInterval })}
+              setValue={(workInterval) => setTimings({ workInterval })}
             />
           </div>
           <div className="flex w-full gap-8">
@@ -48,14 +48,14 @@ const Settings = () => {
               <Label htmlFor="short-break">Short break</Label>
               <TimeField
                 value={shortBreak}
-                setValue={() => setTimings({ shortBreak: shortBreak })}
+                setValue={(shortBreak) => setTimings({ shortBreak })}
               />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="long-break">Long break</Label>
               <TimeField
                 value={longBreak}
-                setValue={() => setTimings({ longBreak: longBreak })}
+                setValue={(longBreak) => setTimings({ longBreak })}
               />
             </div>
           </div>
@@ -63,7 +63,7 @@ const Settings = () => {
             <Label htmlFor="sessions">Number of sessions</Label>
             <TimeField
               value={sessions}
-              setValue={() => setTimings({ sessions })}
+              setValue={(sessions) => setTimings({ sessions })}
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ const Settings = () => {
           <Button onClick={resetTimings} className="w-full" variant="ghost">
             Reset to default
           </Button>
-          <DrawerClose className="w-full">
+          <DrawerClose className="w-full" asChild>
             <Button className="w-full">Back</Button>
           </DrawerClose>
         </DrawerFooter>

@@ -22,7 +22,7 @@ const useTimingsStore = create<TimingsStore>()(
       shortBreak: 5,
       longBreak: 15,
       sessions: 4,
-      setTimings: (timings) => set(timings),
+      setTimings: (timings) => set((state) => ({ ...state, ...timings })),
       resetTimings: () =>
         set({
           workInterval: 25,
@@ -31,7 +31,7 @@ const useTimingsStore = create<TimingsStore>()(
           sessions: 4,
         }),
     }),
-    { name: "bearStore" },
+    { name: "timingsStore" },
   ),
 );
 
