@@ -25,28 +25,6 @@ const Settings = () => {
     resetTimings,
   } = useTimingsStore();
 
-  const [workIntervalLocal, setWorkIntervalLocal] = useState(workInterval / 60);
-  const [shortBreakLocal, setShortBreakLocal] = useState(shortBreak / 60);
-  const [longBreakLocal, setLongBreakLocal] = useState(longBreak / 60);
-  const [sessionsLocal, setSessionsLocal] = useState(sessions);
-
-  const handleSave = () => {
-    setTimings({
-      workInterval: workIntervalLocal * 60,
-      shortBreak: shortBreakLocal * 60,
-      longBreak: longBreakLocal * 60,
-      sessions: sessionsLocal,
-    });
-  };
-
-  const handleReset = () => {
-    setWorkIntervalLocal(25);
-    setShortBreakLocal(5);
-    setLongBreakLocal(15);
-    setSessionsLocal(4);
-    resetTimings();
-  };
-
   return (
     <Drawer>
       <DrawerTrigger>
@@ -61,43 +39,40 @@ const Settings = () => {
           <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="work-interval">Work Interval</Label>
             <TimeField
-              value={workIntervalLocal}
-              setValue={setWorkIntervalLocal}
+              value={workInterval}
+              setValue={() => setTimings({ workInterval })}
             />
           </div>
           <div className="flex w-full gap-8">
             <div className="flex flex-col gap-2">
               <Label htmlFor="short-break">Short break</Label>
               <TimeField
-                value={shortBreakLocal}
-                setValue={setShortBreakLocal}
+                value={shortBreak}
+                setValue={() => setTimings({ shortBreak: shortBreak })}
               />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="long-break">Long break</Label>
-              <TimeField value={longBreakLocal} setValue={setLongBreakLocal} />
+              <TimeField
+                value={longBreak}
+                setValue={() => setTimings({ longBreak: longBreak })}
+              />
             </div>
           </div>
           <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="sessions">Number of sessions</Label>
-            <TimeField value={sessionsLocal} setValue={setSessionsLocal} />
+            <TimeField
+              value={sessions}
+              setValue={() => setTimings({ sessions })}
+            />
           </div>
         </div>
-        <DrawerClose className="w-full">
-          <Button onClick={handleReset} className="mx-4" variant="secondary">
+        <DrawerFooter className="flex-col items-start gap-4">
+          <Button onClick={resetTimings} className="w-full" variant="ghost">
             Reset to default
           </Button>
-        </DrawerClose>
-        <DrawerFooter className="flex-row items-start gap-2">
           <DrawerClose className="w-full">
-            <Button className="w-full" onClick={handleSave}>
-              Save
-            </Button>
-          </DrawerClose>
-          <DrawerClose className="w-full">
-            <Button variant="outline" className="w-full">
-              Back
-            </Button>
+            <Button className="w-full">Back</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

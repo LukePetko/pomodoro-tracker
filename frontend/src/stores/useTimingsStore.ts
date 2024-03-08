@@ -18,16 +18,16 @@ export type TimingsStore = TimingsState & TimingsActions;
 const useTimingsStore = create<TimingsStore>()(
   persist(
     (set) => ({
-      workInterval: 25 * 60,
-      shortBreak: 5 * 60,
-      longBreak: 15 * 60,
+      workInterval: 25,
+      shortBreak: 5,
+      longBreak: 15,
       sessions: 4,
       setTimings: (timings) => set(timings),
       resetTimings: () =>
         set({
-          workInterval: 25 * 60,
-          shortBreak: 5 * 60,
-          longBreak: 15 * 60,
+          workInterval: 25,
+          shortBreak: 5,
+          longBreak: 15,
           sessions: 4,
         }),
     }),

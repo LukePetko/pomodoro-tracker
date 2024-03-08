@@ -17,14 +17,14 @@ const Timer = () => {
       else setCurrentSession(currentSession + 1);
 
       if (currentSession === sessions - 1) {
-        setSeconds(longBreak);
-        setCurrentTotalSeconds(longBreak);
+        setSeconds(longBreak * 60);
+        setCurrentTotalSeconds(longBreak * 60);
       } else if (currentSession % 2 === 0) {
-        setSeconds(workInterval);
-        setCurrentTotalSeconds(workInterval);
+        setSeconds(workInterval * 60);
+        setCurrentTotalSeconds(workInterval * 60);
       } else if (currentSession % 2 === 1) {
-        setSeconds(shortBreak);
-        setCurrentTotalSeconds(shortBreak);
+        setSeconds(shortBreak * 60);
+        setCurrentTotalSeconds(shortBreak * 60);
       }
     }
 
