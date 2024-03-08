@@ -38,11 +38,13 @@ const Timer = () => {
 
   const nextSession = () => {
     if (isBreak) {
+      setIsBreak(false);
+      console.log(currentSession, isBreak);
       if (currentSession === sessions - 1) setCurrentSession(0);
       else setCurrentSession(currentSession + 1);
-      setIsBreak(false);
     } else {
       setIsBreak(true);
+      console.log(currentSession, isBreak);
     }
 
     if (isBreak) {
@@ -56,18 +58,22 @@ const Timer = () => {
       setCurrentTotalSeconds(workInterval * 60);
       setSeconds(workInterval * 60);
     }
-    console.log(
-      "nextSession",
-      isBreak,
-      currentSession,
-      sessions,
-      currentTotalSeconds,
-      seconds,
-      workInterval,
-      shortBreak,
-      longBreak,
-    );
+    // console.log(
+    //   "nextSession",
+    //   isBreak,
+    //   currentSession,
+    //   sessions,
+    //   currentTotalSeconds,
+    //   seconds,
+    //   workInterval,
+    //   shortBreak,
+    //   longBreak,
+    // );
   };
+
+  useEffect(() => {
+    console.log(currentSession, isBreak);
+  }, [currentSession]);
 
   useEffect(() => {
     if (seconds <= 0) {
@@ -98,16 +104,6 @@ const Timer = () => {
         currentSession={currentSession}
         sessions={sessions}
       />
-      <button onClick={() => setSeconds(0)}>Next currentSession</button>
-      <button
-        onClick={() => {
-          setCurrentSession(-1);
-          setSeconds(0);
-        }}
-      >
-        Reset currentSession
-      </button>
-      <div />
     </div>
   );
 };
