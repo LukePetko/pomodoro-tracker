@@ -1,5 +1,6 @@
 import { ChevronRight, Pause, Play, Redo, RotateCcw } from "lucide-react";
 import React from "react";
+import { Button } from "../ui/button";
 
 type ControlsProps = {
   startTimer: () => void;
@@ -23,33 +24,37 @@ const Controls = ({
   return (
     <div className="flex flex-col gap-4 text-center">
       <div className="flex gap-4">
-        <button
+        <Button
           onClick={resetTimer}
-          className="rounded-md bg-red-500 px-4 py-2 text-white"
+          variant="outline"
+          className="border-red-700 text-red-700 hover:border-black"
         >
           <RotateCcw size={24} />
-        </button>
+        </Button>
         {timer ? (
-          <button
+          <Button
             onClick={pauseTimer}
-            className="rounded-md bg-yellow-500 px-4 py-2 text-white"
+            variant="outline"
+            className="border-red-700 text-red-700 hover:border-black"
           >
             <Pause size={24} />
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             onClick={startTimer}
-            className="rounded-md bg-green-500 px-4 py-2 text-white"
+            variant="outline"
+            className="border-red-700 text-red-700 hover:border-black"
           >
             <Play size={24} />
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           onClick={nextSession}
-          className="rounded-md bg-blue-500 px-4 py-2 text-white"
+          variant="outline"
+          className="border-red-700 text-red-700 hover:border-black"
         >
           <ChevronRight size={24} />
-        </button>
+        </Button>
       </div>
       <p>
         {currentSession + 1}/{sessions}
