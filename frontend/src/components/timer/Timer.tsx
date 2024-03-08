@@ -2,41 +2,81 @@ import CircularProgress from "@/components/custom/CircularProgress";
 import secondsToTime from "@/lib/convertSeconds";
 import useTimingsStore from "@/stores/useTimingsStore";
 import React, { useEffect, useState } from "react";
+import Controls from "../controls/Controls";
 
 const Timer = () => {
   const { workInterval, shortBreak, longBreak, sessions } = useTimingsStore();
 
   const [seconds, setSeconds] = useState(0);
   const [currentTotalSeconds, setCurrentTotalSeconds] = useState(1);
+  const [isBreak, setIsBreak] = useState(false);
 
   const [currentSession, setCurrentSession] = useState(0);
 
-  useEffect(() => {
-    if (seconds <= 0) {
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+  const startTimer = () => {
+    if (timer) return;
+    setTimer(
+      setInterval(() => {
+        setSeconds((prev) => prev - 1);
+      }, 1000),
+    );
+  };
+
+  const pauseTimer = () => {
+    if (!timer) return;
+    clearInterval(timer);
+    setTimer(null);
+  };
+
+  const resetTimer = () => {
+    if (timer) clearInterval(timer);
+    setTimer(null);
+    setSeconds(currentTotalSeconds);
+  };
+
+  const nextSession = () => {
+    if (isBreak) {
       if (currentSession === sessions - 1) setCurrentSession(0);
       else setCurrentSession(currentSession + 1);
-
-      if (currentSession === sessions - 1) {
-        setSeconds(longBreak * 60);
-        setCurrentTotalSeconds(longBreak * 60);
-      } else if (currentSession % 2 === 0) {
-        setSeconds(workInterval * 60);
-        setCurrentTotalSeconds(workInterval * 60);
-      } else if (currentSession % 2 === 1) {
-        setSeconds(shortBreak * 60);
-        setCurrentTotalSeconds(shortBreak * 60);
-      }
+      setIsBreak(false);
+    } else {
+      setIsBreak(true);
     }
 
-    const timer = setInterval(() => {
-      setSeconds(seconds - 1);
-    }, 1000);
+    if (isBreak) {
+      setCurrentTotalSeconds(
+        (currentSession === sessions - 1 ? longBreak : shortBreak) * 60,
+      );
+      setSeconds(
+        (currentSession === sessions - 1 ? longBreak : shortBreak) * 60,
+      );
+    } else {
+      setCurrentTotalSeconds(workInterval * 60);
+      setSeconds(workInterval * 60);
+    }
+    console.log(
+      "nextSession",
+      isBreak,
+      currentSession,
+      sessions,
+      currentTotalSeconds,
+      seconds,
+      workInterval,
+      shortBreak,
+      longBreak,
+    );
+  };
 
-    return () => clearInterval(timer);
-  }, [seconds, currentSession]);
+  useEffect(() => {
+    if (seconds <= 0) {
+      nextSession();
+    }
+  }, [seconds]);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-between py-5">
+    <div className="flex w-full flex-col items-center justify-between gap-6 py-5">
       <h1 className="flex justify-center gap-2 text-5xl font-bold">
         <span className="font-japanese underline decoration-red-700 underline-offset-8">
           トマト
@@ -49,6 +89,15 @@ const Timer = () => {
           text={secondsToTime(seconds)}
         />
       </div>
+      <Controls
+        startTimer={startTimer}
+        pauseTimer={pauseTimer}
+        resetTimer={resetTimer}
+        nextSession={nextSession}
+        timer={timer}
+        currentSession={currentSession}
+        sessions={sessions}
+      />
       <button onClick={() => setSeconds(0)}>Next currentSession</button>
       <button
         onClick={() => {
