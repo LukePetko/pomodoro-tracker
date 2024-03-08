@@ -13,6 +13,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import TimeField from "../time-field/TimeField";
 
 const Settings = () => {
   return (
@@ -26,35 +27,23 @@ const Settings = () => {
           <DrawerDescription>Set your own timer intevals.</DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-8 p-4">
-          <div className="flex flex-col gap-2">
+          <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="work-interval">Work Interval</Label>
-            <div className="flex items-center gap-2">
-              <Input id="work-interval" className="w-20" />
-              <span>minutes</span>
-            </div>
+            <TimeField value={25} setValue={() => {}} />
           </div>
-          <div className="flex gap-8">
+          <div className="flex w-full gap-8">
             <div className="flex flex-col gap-2">
               <Label htmlFor="short-break">Short break</Label>
-              <div className="flex items-center gap-2">
-                <Input id="short-break" className="w-20" />
-                <span>minutes</span>
-              </div>
+              <TimeField value={5} setValue={() => {}} />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="long-break">Long break</Label>
-              <div className="flex items-center gap-2">
-                <Input id="long-break" className="w-20" />
-                <span>minutes</span>
-              </div>
+              <TimeField value={15} setValue={() => {}} />
             </div>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex w-1/2 flex-col gap-2 pr-4">
             <Label htmlFor="sessions">Number of sessions</Label>
-            <div className="flex items-center gap-2">
-              <Input id="sessions" className="w-20" />
-              <span>minutes</span>
-            </div>
+            <TimeField value={4} setValue={() => {}} />
           </div>
         </div>
         <DrawerFooter className="flex-row items-start gap-2">
