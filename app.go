@@ -27,8 +27,8 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) Test() string {
-	err := beeep.Notify("Title", "Message body", "assets/information.png")
+func (a *App) Notify(title string, body string) string {
+	err := beeep.Notify(title, body, "")
 	if err != nil {
 		panic(err)
 	}

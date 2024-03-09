@@ -3,4 +3,4 @@
 
 export function Greet(arg1:string):Promise<string>;
 
-export function Test():Promise<string>;
+export function Notify(arg1:string,arg2:string):Promise<string>;
