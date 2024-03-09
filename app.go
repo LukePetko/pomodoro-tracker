@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/gen2brain/beeep"
 )
 
 // App struct
@@ -27,5 +28,9 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) Test() string {
-    return "Test"
+	err := beeep.Notify("Title", "Message body", "assets/information.png")
+	if err != nil {
+		panic(err)
+	}
+	return "Beep!"
 }

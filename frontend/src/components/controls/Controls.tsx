@@ -1,6 +1,7 @@
 import { ChevronRight, Pause, Play, Redo, RotateCcw } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import { Test } from "../../../wailsjs/go/main/App";
 
 type ControlsProps = {
   startTimer: () => void;
@@ -56,6 +57,13 @@ const Controls = ({
           <ChevronRight size={24} />
         </Button>
       </div>
+      <Button
+        onClick={Test}
+        variant="outline"
+        className="border-red-700 text-red-700 hover:border-black"
+      >
+        Test
+      </Button>
       <p>
         {currentSession + 1}/{sessions}
       </p>
