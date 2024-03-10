@@ -1,8 +1,8 @@
 import CircularProgress from "@/components/custom/CircularProgress";
 import secondsToTime from "@/lib/convertSeconds";
+import { notify } from "@/lib/notifications";
 import useTimingsStore from "@/stores/useTimingsStore";
 import React, { useEffect, useState } from "react";
-import { Notify } from "../../../wailsjs/go/main/App";
 import Controls from "../controls/Controls";
 
 const Timer = () => {
@@ -55,11 +55,11 @@ const Timer = () => {
       setSeconds(
         (currentSession === sessions - 1 ? longBreak : shortBreak) * 60,
       );
-      Notify("Time for a break!", "Take a break and relax");
+      notify("Time for a break!", "Take a break and relax");
     } else {
       setCurrentTotalSeconds(workInterval * 60);
       setSeconds(workInterval * 60);
-      Notify("Time to work!", "Get back to work");
+      notify("Time to work!", "Get back to work");
     }
 
     pauseTimer();
