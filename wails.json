@@ -6,6 +6,12 @@
   "frontend:build": "bun run build",
   "frontend:dev:watcher": "bun run dev",
   "frontend:dev:serverUrl": "auto",
+  "info": {
+    "productName": "Tomato Tracker",
+    "productVersion": "0.1.0",
+    "copyright": "2024",
+    "description": "A simple pomodoro tracker"
+  },
   "author": {
     "name": "Lukáš Peťko",
     "email": "luke.petko@gmail.com"
