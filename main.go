@@ -18,7 +18,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "pomodoro-tracker",
+		Title:  "Tomato Tracker",
 		Width:  420,
 		Height: 768,
         DisableResize: true,
@@ -33,6 +33,10 @@ func main() {
 		},
         Mac: &mac.Options{
             TitleBar:     mac.TitleBarHiddenInset(),
+            About: &mac.AboutInfo{
+                Title:   "Tomato Tracker",
+                Message: "© 2024 Lukáš Peťko",
+            },
         },
 	})
 
