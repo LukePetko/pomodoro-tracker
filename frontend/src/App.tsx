@@ -1,10 +1,17 @@
 import { useEffect, useRef } from "react";
+import useAudioAtom from "./atoms/useAudioAtom";
 import Settings from "./components/settings/Settings";
 import Timer from "./components/timer/Timer";
 import { Button } from "./components/ui/button";
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [audio, setAudio] = useAudioAtom();
+
+  useEffect(() => {
+    setAudio(audioRef);
+  }, [audioRef, setAudio]);
+
   return (
     <>
       <div className="draggable fixed top-0 flex h-10 w-screen justify-end p-3">
@@ -19,13 +26,6 @@ function App() {
         preload="auto"
         ref={audioRef}
       />
-      <Button
-        onClick={() => {
-          audioRef.current?.play();
-        }}
-      >
-        play
-      </Button>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import CircularProgress from "@/components/custom/CircularProgress";
 import secondsToTime from "@/lib/convertSeconds";
-import { notify } from "@/lib/notifications";
+import { useNotify } from "@/lib/useNotify";
 import useTimingsStore from "@/stores/useTimingsStore";
 import React, { useEffect, useState } from "react";
 import Controls from "../controls/Controls";
@@ -15,6 +15,8 @@ const Timer = () => {
   const [currentSession, setCurrentSession] = useState(0);
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+  const notify = useNotify();
 
   const startTimer = () => {
     if (timer) return;
@@ -55,11 +57,9 @@ const Timer = () => {
       setSeconds(
         (currentSession === sessions - 1 ? longBreak : shortBreak) * 60,
       );
-      notify("Time for a break!", "Take a break and relax");
     } else {
       setCurrentTotalSeconds(workInterval * 60);
       setSeconds(workInterval * 60);
-      notify("Time to work!", "Get back to work");
     }
 
     pauseTimer();
@@ -72,6 +72,11 @@ const Timer = () => {
   useEffect(() => {
     if (seconds <= 0) {
       nextSession();
+      if (isBreak) {
+        notify("Time for a break!", "Take a break and relax");
+      } else {
+        notify("Time to work!", "Get back to work");
+      }
     }
   }, [seconds]);
 
