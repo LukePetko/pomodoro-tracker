@@ -11,8 +11,9 @@ const Timer = () => {
   const [seconds, setSeconds] = useState(0);
   const [currentTotalSeconds, setCurrentTotalSeconds] = useState(1);
   const [isBreak, setIsBreak] = useState(false);
+  const [isInitial, setIsInitial] = useState(true);
 
-  const [currentSession, setCurrentSession] = useState(0);
+  const [currentSession, setCurrentSession] = useState(-1);
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
@@ -42,12 +43,10 @@ const Timer = () => {
   const nextSession = () => {
     if (isBreak) {
       setIsBreak(false);
-      console.log(currentSession, isBreak);
-      if (currentSession === sessions - 1) setCurrentSession(0);
-      else setCurrentSession(currentSession + 1);
     } else {
       setIsBreak(true);
-      console.log(currentSession, isBreak);
+      if (currentSession === sessions - 1) setCurrentSession(0);
+      else setCurrentSession(currentSession + 1);
     }
 
     if (isBreak) {
@@ -66,16 +65,14 @@ const Timer = () => {
   };
 
   useEffect(() => {
-    console.log(currentSession, isBreak);
-  }, [currentSession]);
-
-  useEffect(() => {
     if (seconds <= 0) {
       nextSession();
-      if (isBreak) {
+      if (isBreak && !isInitial) {
         notify("Time for a break!", "Take a break and relax");
-      } else {
+      } else if (!isBreak && !isInitial) {
         notify("Time to work!", "Get back to work");
+      } else if (isInitial) {
+        setIsInitial(false);
       }
     }
   }, [seconds]);
