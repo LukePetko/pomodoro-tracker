@@ -1,11 +1,21 @@
-# README
+# Tomato Tracker
 
-## About
+## About Project
 
-This is the official Wails React-TS template.
+This is a simple time tracker that uses the Pomodoro Technique. It was build for learning purposes to try making
+a desktop application using Wails and Go. The frontend is built using Vite and React. The UI components are from
+shadcn/ui. The state management is done using jotai and zustand. The styling is done using TailwindCSS.
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+Feel free to try and criticize the project. I'm open to suggestions and improvements.
+
+## About Tech Stack
+
+- Wails - Go + Webview - Backend
+- Vite + React - Frontend
+- TailwindCSS - Styling
+- shadcn/ui - UI Components
+- jotai - State Management
+- zustand - State Management
 
 ## Live Development
 
@@ -17,4 +27,8 @@ to this in your browser, and you can call your Go code from devtools.
 ## Building
 
 To build a redistributable, production mode package, use `wails build`.
-# pomodoro-tracker
+
+## Potential improvements
+
+- [ ] Move sound from frontend to backend for desktop
+- [ ] Add task tracking (Notion API integration)
