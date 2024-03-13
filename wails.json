@@ -8,7 +8,7 @@
   "frontend:dev:serverUrl": "auto",
   "info": {
     "productName": "Tomato Tracker",
-    "productVersion": "0.1.0",
+    "productVersion": "1.0.0",
     "copyright": "2024",
     "description": "A simple pomodoro tracker"
   },
