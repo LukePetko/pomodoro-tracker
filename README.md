@@ -32,3 +32,7 @@ To build a redistributable, production mode package, use `wails build`.
 
 - [ ] Move sound from frontend to backend for desktop
 - [ ] Add task tracking (Notion API integration)
+
+## Bugs
+
+- [ ] Timer is working on half speed in background :(
